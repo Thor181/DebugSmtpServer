@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\frontend\css\**" />
+    <Compile Remove="wwwroot\frontend\resources\**" />
+    <Content Remove="wwwroot\frontend\css\**" />
+    <Content Remove="wwwroot\frontend\resources\**" />
+    <EmbeddedResource Remove="wwwroot\frontend\css\**" />
+    <EmbeddedResource Remove="wwwroot\frontend\resources\**" />
+    <None Remove="wwwroot\frontend\css\**" />
+    <None Remove="wwwroot\frontend\resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\frontend\scripts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DebugSmtpServer\DebugSmtpServer.csproj" />
+  </ItemGroup>
+
+</Project>

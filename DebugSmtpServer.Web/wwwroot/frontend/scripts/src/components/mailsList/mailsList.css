@@ -1,0 +1,5 @@
+.mails-list__item {
+    background-color: lightseagreen;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
