@@ -1,16 +1,19 @@
 .basic-template {
     display: flex;
+    height: 100vh;
     min-width: 100%;
     min-height: 100%;
 }
 
 .basic-template__left {
+    height: 100%;
     min-width: 260px;
     width: 20%;
     background-color: gray;
 }
 
 .basic-template__right {
+    height: 100%;
     width: 80%;
     background-color: lightgrey;
 }

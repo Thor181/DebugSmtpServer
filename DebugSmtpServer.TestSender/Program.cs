@@ -13,6 +13,7 @@ internal class Program
         while (true)
         {
             client.Send(message);
+            Console.WriteLine("Click to send..");
             Console.ReadLine();
         }
     }

@@ -1,3 +1,8 @@
+.mails-list {
+    height: 100%;
+    overflow-y: scroll;
+}
+
 .mails-list__item {
     background-color: lightseagreen;
     margin-bottom: 2px;

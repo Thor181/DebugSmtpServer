@@ -11,9 +11,12 @@ import { selectMail } from '../../store/slices/selectedMailSlice';
 interface IProps {
 }
 
+const stubMail: IMailShortInfo = { body: 'Тело письма <b>жирный</b>. <i>Курсив</i>', subject: 'Тема письма' }
+const stubArray = [stubMail, stubMail, stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,];
+
 const MailsList = () => {
     const dispatch = useAppDispatch();
-    const [mails, setMails] = useState<IMailShortInfo[]>([]);
+    const [mails, setMails] = useState<IMailShortInfo[]>(stubArray);
 
     const onReceiveMails = useCallback((mailsInfo: IMailShortInfo[]) => {
         setMails([...mails, mailsInfo[0]])
@@ -27,7 +30,7 @@ const MailsList = () => {
     }, [onReceiveMails])
 
     return <>
-        <List >
+        <List className='mails-list'>
             {mails.map((x, i) =>
                 <ListItem key={'ListItem' + i} className='mails-list__item' onClick={(e) => dispatch(selectMail(x))}>
                     <ListItemText primary={x.subject} secondary={x.body} />
