@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Button from '@mui/material/Button'
 import MailsList from './components/mailsList/mailsList'
+import View from './components/view/view'
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
                     <MailsList></MailsList>
                 </div>
                 <div className='basic-template__right'>
-                   
+                   <View></View>
                 </div>
             </div>
         </>

@@ -1,5 +1,6 @@
 using DebugSmtpServer.Web.Services.Hubs;
 using DebugSmtpServer.Web.Services.SmtpListener;
+using Microsoft.Extensions.FileProviders;
 using System.Diagnostics;
 using System.Net;
 using System.Text.Encodings.Web;
@@ -26,32 +27,12 @@ namespace DebugSmtpServer.Web
 
             var app = builder.Build();
 
-            app.UseFileServer();
+            app.UseFileServer(new FileServerOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "frontend", "scripts", "dist"))
+            });
 
             app.MapHub<MailHub>("/mailhub");
-
-            app.MapGet("/", async (context) =>
-            {
-                const string indexPath = "wwwroot/frontend/scripts/dist/index.html";
-#if DEBUG
-            step1:
-                try
-                {
-                    context.Response.ContentType = "text/html";
-                    context.Response.StatusCode = (int)HttpStatusCode.OK;
-                    await context.Response.WriteAsync(System.IO.File.ReadAllText(indexPath));
-                    return;
-                }
-                catch (FileNotFoundException)
-                {
-                    goto step1;
-                }
-#endif
-
-                context.Response.ContentType = "text/html";
-                context.Response.StatusCode = (int)HttpStatusCode.OK;
-                await context.Response.WriteAsync(System.IO.File.ReadAllText(indexPath));
-            });
 
             app.Run();
         }

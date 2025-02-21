@@ -1,7 +1,7 @@
 .basic-template {
+    display: flex;
     min-width: 100%;
     min-height: 100%;
-    display: flex;
 }
 
 .basic-template__left {
@@ -11,6 +11,6 @@
 }
 
 .basic-template__right {
-    min-width: 80%;
+    width: 80%;
     background-color: lightgrey;
 }
