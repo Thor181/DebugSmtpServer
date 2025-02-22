@@ -1,43 +1,37 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Avatar, Button, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material'
-import { Delete } from '@mui/icons-material';
 import IMailShortInfo from '../../models/mailShortInfo';
 import * as signalR from '../../signalr/signalrConnection'
 import './mailsList.css'
 import { useAppDispatch } from '../../store/rootStore';
 import { selectMail } from '../../store/slices/selectedMailSlice';
+import List from '../list/list';
+import ListEntry from '../listEntry/listEntry';
+import MailListEntry from '../mailListEntry/mailListEntry';
+import mailStub from '../../utils/mailStub';
 
 interface IProps {
 }
 
-const stubMail: IMailShortInfo = { body: 'Тело письма <b>жирный</b>. <i>Курсив</i>', subject: 'Тема письма' }
-const stubArray = [stubMail, stubMail, stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,stubMail,];
+const stubArray = [mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,];
 
 const MailsList = () => {
     const dispatch = useAppDispatch();
     const [mails, setMails] = useState<IMailShortInfo[]>(stubArray);
 
     const onReceiveMails = useCallback((mailsInfo: IMailShortInfo[]) => {
-        setMails([...mails, mailsInfo[0]])
-    }, [mails]);
+        setMails(e => [...e, mailsInfo[0]])
+    }, []);
 
     useEffect(() => {
         signalR.subscribe('ReceiveMails', onReceiveMails);
 
         return () => signalR.unsubscribe('ReceiveMails', onReceiveMails);
 
-    }, [onReceiveMails])
+    }, [])
 
     return <>
-        <List className='mails-list'>
-            {mails.map((x, i) =>
-                <ListItem key={'ListItem' + i} className='mails-list__item' onClick={(e) => dispatch(selectMail(x))}>
-                    <ListItemText primary={x.subject} secondary={x.body} />
-                    <IconButton>
-                        <Delete />
-                    </IconButton>
-                </ListItem>
-            )} 
+        <List >
+            {mails.map((x,i) => <MailListEntry key={'maillistentry' + i} mail={x} onClick={(e) => dispatch(selectMail(e))}/>)}
         </List>
     </>
 

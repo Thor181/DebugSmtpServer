@@ -2,8 +2,8 @@ import React from "react";
 import './view.css'
 import { useAppSelector } from "../../store/rootStore";
 import { currentMail } from "../../store/slices/selectedMailSlice";
-import { InputAdornment, TextField } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
+import IMailShortInfo from "../../models/mailShortInfo";
+import ReadonlyInput from "../readonlyInput/readonlyInput";
 
 type Props = {
 
@@ -11,42 +11,20 @@ type Props = {
 
 const View: React.FC<Props> = (props: Props) => {
 
-    const currentSelectedMail = useAppSelector(currentMail)
+    const currentSelectedMail: IMailShortInfo = useAppSelector(currentMail)
 
     return <>
         <div className="view">
-            <div className="view__subject">
-                
-                <div>
-                <TextField
-                    label="От"
-                    slotProps={{
-                        input: {
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircle />
-                                </InputAdornment>
-                            ),
-                        },
-                    }}
-                    variant="standard"
-                />
-                <TextField
-                    label="Кому"
-                    slotProps={{
-                        input: {
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircle />
-                                </InputAdornment>
-                            ),
-                        },
-                    }}
-                    variant="standard"
-                />
-                </div>
-                <TextField className="view__subject" label="Тема" variant="filled" value={currentSelectedMail.subject} />
+            <div className="view__subject text-overflow" title={currentSelectedMail.subject}>
+                {currentSelectedMail.subject}
             </div>
+            <div className="view__head">
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    <ReadonlyInput value={currentSelectedMail.from} label="От:"/>
+                    <ReadonlyInput value={currentSelectedMail.to.join("; ")} label="Кому:"/>
+                </div>
+            </div>
+
             <div className="view__body">
                 <div dangerouslySetInnerHTML={{ __html: currentSelectedMail.body }}>
 
