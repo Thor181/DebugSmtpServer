@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import IMailShortInfo from "../../models/mailShortInfo";
 import { RootState } from "../rootStore";
+import mailStub from "../../utils/mailStub";
 
-const defaultValue: IMailShortInfo = { subject: '', body: '' };
+const defaultValue: IMailShortInfo = {...mailStub}
 
 const selectedMailSlice = createSlice({
     name: 'selectedMail',
