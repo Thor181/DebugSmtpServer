@@ -1,0 +1,29 @@
+.mail-list-entry {
+    display: flex;
+    height: 40px;
+    cursor: pointer;
+}
+
+.mail-list-entry__left {
+    flex-grow: 9;
+    min-width: 0;
+}
+
+.mail-list-entry__from {
+
+}
+
+.mail-list-entry__subject {
+    font-size: 0.7em;
+}
+
+.mail-list-entry__right {
+    flex-grow: 1;
+}
+
+.mail-list-entry__date-container {
+    display: flex;
+    flex-direction: column;
+    place-items: flex-end;
+    font-size: 1rem;
+}

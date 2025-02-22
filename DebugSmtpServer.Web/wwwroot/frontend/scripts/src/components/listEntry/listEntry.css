@@ -1,0 +1,8 @@
+.list-entry {
+    background-color: lightseagreen;
+    padding: 0 5px;
+}
+
+.list-entry:hover {
+    background-color: rgb(27, 145, 139);
+}

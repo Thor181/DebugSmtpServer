@@ -1,0 +1,11 @@
+.readonly-input {
+    display: flex;
+}
+
+.readonly-input__input {
+    flex-basis: 100%;
+}
+
+.readonly-input__input:focus-visible {
+    outline: none;
+}
