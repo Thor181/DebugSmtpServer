@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Avatar, Button, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material'
-import MailIcon from '@mui/icons-material/Mail';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Delete } from '@mui/icons-material';
 import IMailShortInfo from '../../models/mailShortInfo';
 import * as signalR from '../../signalr/signalrConnection'
 import './mailsList.css'
@@ -35,10 +34,10 @@ const MailsList = () => {
                 <ListItem key={'ListItem' + i} className='mails-list__item' onClick={(e) => dispatch(selectMail(x))}>
                     <ListItemText primary={x.subject} secondary={x.body} />
                     <IconButton>
-                        <DeleteIcon />
+                        <Delete />
                     </IconButton>
                 </ListItem>
-            )}
+            )} 
         </List>
     </>
 
