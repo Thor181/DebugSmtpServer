@@ -15,11 +15,8 @@ namespace DebugSmtpServer.Web.Services.SmtpListener
         private readonly IHubContext<MailHub, IMailHub> _hubContext;
         private readonly DebugSmtpServer _server;
 
-        private readonly MailShortInfo[] _pooledArray;
-
         public SmtpListener(IHubContext<MailHub, IMailHub> hubContext)
         {
-            _pooledArray = new MailShortInfo[1];
             _hubContext = hubContext;
             _server = new DebugSmtpServer();
             _server.ReceivedMail += HandleMailReceive;
@@ -34,11 +31,11 @@ namespace DebugSmtpServer.Web.Services.SmtpListener
 
         private void HandleMailReceive(object? sender, ReceiveMailEventArgs e)
         {
-            _pooledArray[0] = new MailShortInfo(e.Mail.Subject, e.Mail.TextBody);
+            var mail = e.Mail;
+            var shortInfo = new MailShortInfo(1, mail.Subject, mail.Date.ToUnixTimeMilliseconds(), mail.From.Mailboxes.FirstOrDefault().Address);
+            ReadOnlySpan<MailShortInfo> mails = [shortInfo];
 
-            _hubContext.Clients.All.ReceiveMails(_pooledArray).GetAwaiter().GetResult();
-
-            _pooledArray[0] = null;
+            _hubContext.Clients.All.ReceiveMails(mails).GetAwaiter().GetResult();
         }
     }
 }

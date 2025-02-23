@@ -10,7 +10,7 @@ namespace DebugSmtpServer.Web.Services.Hubs
 {
     public interface IMailHub
     {
-        public Task ReceiveMails(MailShortInfo[] mailsInfo);
+        public Task ReceiveMails(ReadOnlySpan<MailShortInfo> mailsInfo);
     }
 
     public class MailHub : Hub<IMailHub>
