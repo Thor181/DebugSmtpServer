@@ -7,19 +7,16 @@ import { selectMail } from '../../store/slices/selectedMailSlice';
 import List from '../list/list';
 import ListEntry from '../listEntry/listEntry';
 import MailListEntry from '../mailListEntry/mailListEntry';
-import mailStub from '../../utils/mailStub';
 
 interface IProps {
 }
 
-const stubArray = [mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,mailStub,];
-
 const MailsList = () => {
     const dispatch = useAppDispatch();
-    const [mails, setMails] = useState<IMailShortInfo[]>(stubArray);
+    const [mails, setMails] = useState<IMailShortInfo[]>([]);
 
     const onReceiveMails = useCallback((mailsInfo: IMailShortInfo[]) => {
-        setMails(e => [...e, mailsInfo[0]])
+        setMails(e => [mailsInfo[0], ...e])
     }, []);
 
     useEffect(() => {
@@ -34,10 +31,6 @@ const MailsList = () => {
             {mails.map((x,i) => <MailListEntry key={'maillistentry' + i} mail={x} onClick={(e) => dispatch(selectMail(e))}/>)}
         </List>
     </>
-
-
-
-
 }
 
 export default MailsList

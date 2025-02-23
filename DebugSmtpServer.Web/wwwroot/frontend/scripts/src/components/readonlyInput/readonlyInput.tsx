@@ -14,7 +14,7 @@ const ReadonlyInput = (props: Props) => {
             {props.label !== null
                 ? <><label htmlFor={id}>{props.label}</label> <span style={{width: 10}}></span></>
                 : <></>}
-            <input id={id} className='readonly-input__input' value={props.value} />
+            <input id={id} className='readonly-input__input' value={props.value} readOnly />
         </div>
     )
 }

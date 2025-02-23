@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import IMailShortInfo from "../../models/mailShortInfo";
 import { RootState } from "../rootStore";
-import mailStub from "../../utils/mailStub";
 
-const defaultValue: IMailShortInfo = {...mailStub}
+export type SelectedMail = { mail: IMailShortInfo | null }
+const defaultValue: SelectedMail = { mail: null };
 
 const selectedMailSlice = createSlice({
     name: 'selectedMail',
     initialState: defaultValue,
     reducers: {
-        selectMail: (state, action: PayloadAction<IMailShortInfo>) => {
-            return action.payload;
+        selectMail: (state: SelectedMail, action: PayloadAction<IMailShortInfo>) => {
+
+            state.mail = action.payload;
         }
     },
     selectors: {
@@ -22,4 +23,3 @@ export const { currentMail } = selectedMailSlice.getSelectors((root: RootState) 
 export const { selectMail } = selectedMailSlice.actions;
 
 export default selectedMailSlice;
- 

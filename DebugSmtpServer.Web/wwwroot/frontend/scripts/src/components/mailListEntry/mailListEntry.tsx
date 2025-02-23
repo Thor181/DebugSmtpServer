@@ -19,10 +19,10 @@ const MailListEntry = (props: Props) => {
                 <div className='mail-list-entry__right' >
                     <div className='mail-list-entry__date-container'>
                         <div>
-                            {props.mail.date.toLocaleDateString()}
+                            {new Date(props.mail.date).toLocaleDateString()}
                         </div>
                         <div style={{fontSize: '0.7em'}}>
-                            {props.mail.date.toLocaleTimeString()}
+                            {new Date(props.mail.date).toLocaleTimeString()}
                         </div>
                     </div>
                 </div>

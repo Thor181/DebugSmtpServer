@@ -32,4 +32,6 @@
     background-color: white;
     color: black;
     border: 1px solid gray;
+
+    overflow: auto;
 }
