@@ -12,6 +12,7 @@ type Props = {
 const View: React.FC<Props> = (props: Props) => {
 
     const currentSelectedMail: SelectedMail = useAppSelector(currentMail)
+console.log(currentSelectedMail.mail?.body);
 
     return <>
         <div className="view">
@@ -24,7 +25,7 @@ const View: React.FC<Props> = (props: Props) => {
                     <div className="view__head">
                         <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                             <ReadonlyInput value={currentSelectedMail.mail.from} label="От:" />
-                            <ReadonlyInput value={currentSelectedMail.mail.to.join("; ")} label="Кому:" />
+                            <ReadonlyInput value={currentSelectedMail.mail.to?.join("; ")} label="Кому:" />
                         </div>
                     </div>
 
@@ -32,7 +33,7 @@ const View: React.FC<Props> = (props: Props) => {
                         <div dangerouslySetInnerHTML={{ __html: currentSelectedMail.mail.body }}>
 
                         </div>
-                    </div>
+                    </div> 
                 </>
             }
 

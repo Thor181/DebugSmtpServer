@@ -32,10 +32,10 @@ namespace DebugSmtpServer.Web.Services.SmtpListener
         private void HandleMailReceive(object? sender, ReceiveMailEventArgs e)
         {
             var mail = e.Mail;
-            var shortInfo = new MailShortInfo(1, mail.Subject, mail.Date.ToUnixTimeMilliseconds(), mail.From.Mailboxes.FirstOrDefault().Address);
-            ReadOnlySpan<MailShortInfo> mails = [shortInfo];
+            var shortInfo = new MailShortInfo(1, mail.Subject, mail.Date.ToUnixTimeMilliseconds(), mail.From.Mailboxes.FirstOrDefault().Address, mail.HtmlBody);
+            //ReadOnlySpan<MailShortInfo> mails = [shortInfo];
 
-            _hubContext.Clients.All.ReceiveMails(mails).GetAwaiter().GetResult();
+            _hubContext.Clients.All.ReceiveMails([shortInfo]).GetAwaiter().GetResult();
         }
     }
 }
