@@ -21,6 +21,7 @@ public class DebugSmtpServer
         provider.Add(store);
 
         _server = new SmtpServer.SmtpServer(op, provider);
+        
     }
 
     private void HandleReceiveMail(object? sender, ReceiveMailEventArgs e)
