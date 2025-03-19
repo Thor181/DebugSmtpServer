@@ -1,8 +1,9 @@
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import IMailShortInfo from "../models/mailShortInfo";
 
 const signalRConnection = new HubConnectionBuilder().withUrl('/mailhub').withAutomaticReconnect().build();
 
-signalRConnection.start();
+export const start = () => signalRConnection.start();
 
 type method = "ReceiveMails";
 
@@ -12,6 +13,10 @@ export const subscribe = (methodName: method, callback: (...args: any[]) => any)
 
 export const unsubscribe = (methodName: method, callback: (...args: any[]) => any) => {
     signalRConnection.off(methodName, callback);
+}
+
+export const getMails = () => {
+    return signalRConnection.invoke<IMailShortInfo[]>("GetMails");
 }
 
 // export const sendMessageToServer = (message: ISendMessage) => {

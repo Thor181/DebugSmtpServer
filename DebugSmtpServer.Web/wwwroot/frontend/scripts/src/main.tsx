@@ -4,11 +4,14 @@ import './index.css'
 import App from './App.tsx'
 import rootStore from './store/rootStore.ts'
 import { Provider } from 'react-redux'
+import { start } from './signalr/signalrConnection.ts'
 
-createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <Provider store={rootStore}>
-            <App />
-        </Provider>
-    </StrictMode>,
-)
+start().then(x => {
+    createRoot(document.getElementById('root')!).render(
+        <StrictMode>
+            <Provider store={rootStore}>
+                <App />
+            </Provider>
+        </StrictMode>,
+    )
+}) 

@@ -1,4 +1,5 @@
-﻿using MimeKit;
+﻿using DebugSmtpServer.Database.Models;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace DebugSmtpServer
 {
-    public class ReceiveMailEventArgs(MimeMessage mail) : EventArgs
+    public class ReceiveMailEventArgs(Mail mail) : EventArgs
     {
-        public MimeMessage Mail { get; } = mail;
+        public Mail Mail { get; } = mail;
     }
 }

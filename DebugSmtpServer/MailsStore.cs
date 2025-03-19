@@ -1,4 +1,6 @@
-﻿using SmtpServer;
+﻿using DebugSmtpServer.Database.Models;
+using DebugSmtpServer.Database.Repositories;
+using SmtpServer;
 using SmtpServer.Protocol;
 using SmtpServer.Storage;
 using System;
@@ -27,7 +29,12 @@ namespace DebugSmtpServer
             stream.Position = 0;
 
             var message = await MimeKit.MimeMessage.LoadAsync(stream, cancellationToken);
-            var args = new ReceiveMailEventArgs(message);
+            var from = message.From.Mailboxes.FirstOrDefault()?.Address ?? string.Empty;
+            var to = message.To.Mailboxes.Select(x => x.Address).ToArray();
+            var mail = new Mail(message.Subject, message.HtmlBody ?? message.TextBody, from, to, message.Date);
+            mail.Save();
+
+            var args = new ReceiveMailEventArgs(mail);
 
             ReceiveMail?.Invoke(this, args);
 

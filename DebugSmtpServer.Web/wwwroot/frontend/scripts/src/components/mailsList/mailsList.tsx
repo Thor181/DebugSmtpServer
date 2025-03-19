@@ -15,6 +15,12 @@ const MailsList = () => {
     const dispatch = useAppDispatch();
     const [mails, setMails] = useState<IMailShortInfo[]>([]);
 
+    React.useEffect(() => {
+        signalR.getMails().then(x => {
+            setMails(mails => [...x])
+        });
+    },[])
+
     const onReceiveMails = useCallback((mailsInfo: IMailShortInfo[]) => {
         setMails(e => [mailsInfo[0], ...e])
     }, []);
@@ -23,8 +29,9 @@ const MailsList = () => {
         signalR.subscribe('ReceiveMails', onReceiveMails);
 
         return () => signalR.unsubscribe('ReceiveMails', onReceiveMails);
-
     }, [])
+
+   
 
     return <>
         <List >

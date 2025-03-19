@@ -1,5 +1,6 @@
 ﻿using DebugSmtpServer.Web.Models.Mails;
 using DebugSmtpServer.Web.Services.Hubs;
+using DebugSmtpServer.Web.Utils.Mapping;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Buffers;
@@ -32,8 +33,8 @@ namespace DebugSmtpServer.Web.Services.SmtpListener
         private void HandleMailReceive(object? sender, ReceiveMailEventArgs e)
         {
             var mail = e.Mail;
-            var shortInfo = new MailShortInfo(1, mail.Subject, mail.Date.ToUnixTimeMilliseconds(), mail.From.Mailboxes.FirstOrDefault().Address, mail.HtmlBody);
-            //ReadOnlySpan<MailShortInfo> mails = [shortInfo];
+            //var shortInfo = new MailShortInfo(1, mail.Subject, mail.Date.ToUnixTimeMilliseconds(), mail.From.Mailboxes.FirstOrDefault().Address, mail.HtmlBody);
+            var shortInfo = mail.ToMailShortInfo();
 
             _hubContext.Clients.All.ReceiveMails([shortInfo]).GetAwaiter().GetResult();
         }
