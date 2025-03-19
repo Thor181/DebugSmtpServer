@@ -13,7 +13,7 @@ namespace DebugSmtpServer.Web.Utils.Mapping
     {
         public static MailShortInfo ToMailShortInfo(this Mail mail)
         {
-            return new MailShortInfo(mail.Id, mail.Name, mail.Date.ToUnixTimeMilliseconds(), mail.From, mail.Body);
+            return new MailShortInfo(mail.Id, mail.Name, mail.Date.ToUnixTimeMilliseconds(), mail.From, mail.To, mail.Body);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DebugSmtpServer.Web.Models.Mails
 {
-    public record MailShortInfo(long Id, string Subject, long Date, string From, string Body)
+    public record MailShortInfo(long Id, string Subject, long Date, string From, string[] To, string Body)
     {
         
     }
